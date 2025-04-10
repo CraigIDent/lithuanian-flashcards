@@ -17,9 +17,9 @@ const Button = ({ children, className = "", ...props }) => (
 
 // Local import for static file
 import tsvText from './data/InitialSet.tsv?raw';
-import tsvText from './data/Set1.tsv?raw';
-import tsvText from './data/Set2.tsv?raw';
-import tsvText from './data/Set3.tsv?raw';
+import tsvText1 from './data/Set1.tsv?raw';
+import tsvText2 from './data/Set2.tsv?raw';
+import tsvText3 from './data/Set3.tsv?raw';
 
 function parseTSV(raw) {
   const rows = Papa.parse(raw.trim(), {
@@ -36,9 +36,9 @@ function parseTSV(raw) {
 
 
 const initialWords = parseTSV(tsvText);
-const set1Words = parseTSV(tsvText);
-const set2Words = parseTSV(tsvText);
-const set3Words = parseTSV(tsvText);
+const set1Words = parseTSV(tsvText1);
+const set2Words = parseTSV(tsvText2);
+const set3Words = parseTSV(tsvText3);
 
 function shuffle(array) {
   const copy = [...array];
