@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Papa from 'papaparse';
+import confetti from 'canvas-confetti';
 
 const Card = ({ children, className = "" }) => (
   <div className={`rounded-2xl border shadow bg-white ${className}`}>{children}</div>
@@ -14,6 +15,8 @@ const Button = ({ children, className = "", ...props }) => (
     {children}
   </button>
 );
+
+
 
 // Local import for static file
 import tsvText from './data/InitialSet.tsv?raw';
@@ -91,6 +94,7 @@ export default function FlashcardApp() {
   const [set9Enabled, setSet9Enabled] = useState(false);
   const [set10Enabled, setSet10Enabled] = useState(false);
   const [set11Enabled, setSet11Enabled] = useState(false);
+  const [celebrated, setCelebrated] = useState(false);
 
 
   const updatePoolWithSets = (initialEnabled, set1Enabled, set2Enabled, set3Enabled, set4Enabled, set5Enabled, set6Enabled,set7Enabled, set8Enabled, set9Enabled,set10Enabled,set11Enabled) => {
@@ -141,6 +145,18 @@ const drawNextCard = () => {
   useEffect(() => {
     if (!showAnswer) drawNextCard();
   }, [showAnswer]);
+
+  useEffect(() => {
+    const allCorrect = correctPile.length >0 && pool.length === 0 && wrongPile.length === 0;
+
+    if (allCorrect) {
+     confetti({
+       particleCount: 80,
+       spread: 70,
+       origin: { y: 0.6 },
+     });
+    }
+  }, [pool, wrongPile]);
 
   const correctGender = current ? extractGender(current.german) : "";
   const nounOnly = current ? extractNoun(current.german) : "";
