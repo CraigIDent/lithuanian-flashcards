@@ -202,7 +202,7 @@ const drawNextCard = () => {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center p-4 bg-gray-100 text-gray-800">
+    <div className="relative min-h-[100dvh] overflow-hidden flex flex-col items-center justify-center p-4 bg-gray-100 text-gray-800">
       <div className="absolute top-4 left-4 max-h-[80vh] overflow-y-auto grid grid-cols-2 gap-x-6 gap-y-2 text-sm z-50 pr-2">
         <label className="flex items-center gap-2">
           <input
