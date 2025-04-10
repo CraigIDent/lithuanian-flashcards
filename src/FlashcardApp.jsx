@@ -16,7 +16,7 @@ const Button = ({ children, className = "", ...props }) => (
 );
 
 // Local import for static file
-import tsvText from './data/initialSet.tsv?raw';
+import tsvText from './data/InitialSet.tsv?raw';
 
 function parseTSV(raw) {
   const rows = Papa.parse(raw.trim(), {
