@@ -20,6 +20,13 @@ import tsvText from './data/InitialSet.tsv?raw';
 import tsvText1 from './data/Set1.tsv?raw';
 import tsvText2 from './data/Set2.tsv?raw';
 import tsvText3 from './data/Set3.tsv?raw';
+import tsvText4 from './data/Set4.tsv?raw';
+import tsvText5 from './data/Set5.tsv?raw';
+import tsvText6 from './data/Set6.tsv?raw';
+import tsvText7 from './data/Set7.tsv?raw';
+import tsvText8 from './data/Set8.tsv?raw';
+import tsvText9 from './data/Set9.tsv?raw';
+import tsvText10 from './data/Set10.tsv?raw';
 
 function parseTSV(raw) {
   const rows = Papa.parse(raw.trim(), {
@@ -39,6 +46,13 @@ const initialWords = parseTSV(tsvText);
 const set1Words = parseTSV(tsvText1);
 const set2Words = parseTSV(tsvText2);
 const set3Words = parseTSV(tsvText3);
+const set4Words = parseTSV(tsvText4);
+const set5Words = parseTSV(tsvText5);
+const set6Words = parseTSV(tsvText6);
+const set7Words = parseTSV(tsvText7);
+const set8Words = parseTSV(tsvText8);
+const set9Words = parseTSV(tsvText9);
+const set10Words = parseTSV(tsvText10);
 
 function shuffle(array) {
   const copy = [...array];
@@ -67,13 +81,29 @@ export default function FlashcardApp() {
   const [set1Enabled, setSet1Enabled] = useState(false);
   const [set2Enabled, setSet2Enabled] = useState(false);
   const [set3Enabled, setSet3Enabled] = useState(false);
+  const [set4Enabled, setSet4Enabled] = useState(false);
+  const [set5Enabled, setSet5Enabled] = useState(false);
+  const [set6Enabled, setSet6Enabled] = useState(false);
+  const [set7Enabled, setSet7Enabled] = useState(false);
+  const [set8Enabled, setSet8Enabled] = useState(false);
+  const [set9Enabled, setSet9Enabled] = useState(false);
+  const [set10Enabled, setSet10Enabled] = useState(false);
 
-  const updatePoolWithSets = (initialEnabled, set1Enabled, set2Enabled, set3Enabled) => {
+
+  const updatePoolWithSets = (initialEnabled, set1Enabled, set2Enabled, set3Enabled, set4Enabled, set5Enabled, set6Enabled,set7Enabled, set8Enabled, set9Enabled,set10Enabled) => {
     let newPool = [];
     if (initialEnabled) newPool = [...newPool, ...initialWords];
     if (set1Enabled) newPool = [...newPool, ...set1Words];
     if (set2Enabled) newPool = [...newPool, ...set2Words];
     if (set3Enabled) newPool = [...newPool, ...set3Words];
+    if (set4Enabled) newPool = [...newPool, ...set4Words];
+    if (set5Enabled) newPool = [...newPool, ...set5Words];
+    if (set6Enabled) newPool = [...newPool, ...set6Words];
+    if (set7Enabled) newPool = [...newPool, ...set7Words];
+    if (set8Enabled) newPool = [...newPool, ...set8Words];
+    if (set9Enabled) newPool = [...newPool, ...set9Words];
+    if (set10Enabled) newPool = [...newPool, ...set10Words];
+
 
     const newPoolSet = new Set(newPool);
     setCorrectPile(prev => prev.filter(word => newPoolSet.has(word)));
@@ -160,7 +190,7 @@ const drawNextCard = () => {
             onChange={(e) => {
               const val = e.target.checked;
               setInitialSetEnabled(val);
-              updatePoolWithSets(val, set1Enabled, set2Enabled, set3Enabled);
+              updatePoolWithSets(val, set1Enabled, set2Enabled, set3Enabled,set4Enabled, set5Enabled, set6Enabled,set7Enabled, set8Enabled, set9Enabled,set10Enabled);
             }}
           />
           Initial Set (1-25)
@@ -172,7 +202,7 @@ const drawNextCard = () => {
             onChange={(e) => {
               const val = e.target.checked;
               setSet1Enabled(val);
-              updatePoolWithSets(initialSetEnabled, val, set2Enabled, set3Enabled);
+              updatePoolWithSets(initialSetEnabled, val, set2Enabled, set3Enabled, set4Enabled, set5Enabled, set6Enabled,set7Enabled, set8Enabled, set9Enabled,set10Enabled);
             }}
           />
           Set 1 (26-100)
@@ -184,7 +214,7 @@ const drawNextCard = () => {
             onChange={(e) => {
               const val = e.target.checked;
               setSet2Enabled(val);
-              updatePoolWithSets(initialSetEnabled, set1Enabled, val, set3Enabled);
+              updatePoolWithSets(initialSetEnabled, set1Enabled, val, set3Enabled, set4Enabled, set5Enabled, set6Enabled,set7Enabled, set8Enabled, set9Enabled,set10Enabled);
             }}
           />
           Set 2 (101-200)
@@ -196,10 +226,94 @@ const drawNextCard = () => {
             onChange={(e) => {
               const val = e.target.checked;
               setSet3Enabled(val);
-              updatePoolWithSets(initialSetEnabled, set1Enabled, set2Enabled, val);
+              updatePoolWithSets(initialSetEnabled, set1Enabled, set2Enabled, val, set4Enabled, set5Enabled, set6Enabled,set7Enabled, set8Enabled, set9Enabled,set10Enabled);
             }}
           />
           Set 3 (201-300)
+        </label>
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={set4Enabled}
+            onChange={(e) => {
+              const val = e.target.checked;
+              setSet4Enabled(val);
+              updatePoolWithSets(initialSetEnabled, set1Enabled, set2Enabled, set3Enabled, val, set5Enabled, set6Enabled,set7Enabled, set8Enabled, set9Enabled,set10Enabled);
+            }}
+          />
+          Set 4 (301-400)
+        </label>
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={set5Enabled}
+            onChange={(e) => {
+              const val = e.target.checked;
+              setSet5Enabled(val);
+              updatePoolWithSets(initialSetEnabled, set1Enabled, set2Enabled, set3Enabled, set4Enabled, val, set6Enabled,set7Enabled, set8Enabled, set9Enabled,set10Enabled);
+            }}
+          />
+          Set 5 (401-500)
+        </label>
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={set6Enabled}
+            onChange={(e) => {
+              const val = e.target.checked;
+              setSet6Enabled(val);
+              updatePoolWithSets(initialSetEnabled, set1Enabled, set2Enabled, set3Enabled, set4Enabled, set5Enabled, val ,set7Enabled, set8Enabled, set9Enabled,set10Enabled);
+            }}
+          />
+          Set 6 (501-600)
+        </label>
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={set7Enabled}
+            onChange={(e) => {
+              const val = e.target.checked;
+              setSet7Enabled(val);
+              updatePoolWithSets(initialSetEnabled, set1Enabled, set2Enabled, set3Enabled, set4Enabled, set5Enabled, set6Enabled, val, set8Enabled, set9Enabled,set10Enabled);
+            }}
+          />
+          Set 7 (601-700)
+        </label>
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={set8Enabled}
+            onChange={(e) => {
+              const val = e.target.checked;
+              setSet8Enabled(val);
+              updatePoolWithSets(initialSetEnabled, set1Enabled, set2Enabled, set3Enabled, set4Enabled, set5Enabled, set6Enabled, set7Enabled, val, set9Enabled,set10Enabled);
+            }}
+          />
+          Set 8 (701-800)
+        </label>
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={set9Enabled}
+            onChange={(e) => {
+              const val = e.target.checked;
+              setSet9Enabled(val);
+              updatePoolWithSets(initialSetEnabled, set1Enabled, set2Enabled, set3Enabled, set4Enabled, set5Enabled, set6Enabled,set7Enabled, set8Enabled, val ,set10Enabled);
+            }}
+          />
+          Set 9 (801-900)
+        </label>
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={set10Enabled}
+            onChange={(e) => {
+              const val = e.target.checked;
+              setSet10Enabled(val);
+              updatePoolWithSets(initialSetEnabled, set1Enabled, set2Enabled, set3Enabled, set4Enabled, set5Enabled, set6Enabled,set7Enabled, set8Enabled, set9Enabled,val);
+            }}
+          />
+          Set 10 (901-1000)
         </label>
       </div>
 
