@@ -98,6 +98,7 @@ export default function FlashcardApp() {
 
 
   const updatePoolWithSets = (initialEnabled, set1Enabled, set2Enabled, set3Enabled, set4Enabled, set5Enabled, set6Enabled,set7Enabled, set8Enabled, set9Enabled,set10Enabled,set11Enabled) => {
+    setCelebrated(false); // reset confetti lockout
     let newPool = [];
     if (initialEnabled) newPool = [...newPool, ...initialWords];
     if (set1Enabled) newPool = [...newPool, ...set1Words];
