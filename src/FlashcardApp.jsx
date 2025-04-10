@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Papa from 'papaparse';
 
 const Card = ({ children, className = "" }) => (
   <div className={`rounded-2xl border shadow bg-white ${className}`}>{children}</div>
@@ -14,33 +15,25 @@ const Button = ({ children, className = "", ...props }) => (
   </button>
 );
 
-const initialWords = [
-  { english: "Time", german: "Die Zeit", plural: "Die Zeiten" },
-  { english: "Man", german: "Der Mann", plural: "Die Männer" },
-  { english: "Hand", german: "Die Hand", plural: "Die Hände" },
-  { english: "Day", german: "Der Tag", plural: "Die Tage" },
-  { english: "Way", german: "Der Weg", plural: "Die Wege" },
-  { english: "Eye", german: "Das Auge", plural: "Die Augen" },
-  { english: "Thing", german: "Die Sache", plural: "Die Sachen" },
-  { english: "Head", german: "Der Kopf", plural: "Die Köpfe" },
-  { english: "Year", german: "Das Jahr", plural: "Die Jahre" },
-  { english: "Room", german: "Das Zimmer", plural: "Die Zimmer" },
-  { english: "Door", german: "Die Tür", plural: "Die Türen" },
-  { english: "Woman", german: "Die Frau", plural: "Die Frauen" },
-  { english: "Face", german: "Das Gesicht", plural: "Die Gesichter" },
-  { english: "Mother", german: "Die Mutter", plural: "Die Mütter" },
-  { english: "People", german: "Die Leute", plural: "-" },
-  { english: "Night", german: "Die Nacht", plural: "Die Nächte" },
-  { english: "House", german: "Das Haus", plural: "Die Häuser" },
-  { english: "Father", german: "Der Vater", plural: "Die Väter" },
-  { english: "Life", german: "Das Leben", plural: "Die Leben" },
-  { english: "Back", german: "Der Rücken", plural: "Die Rücken" },
-  { english: "Voice", german: "Die Stimme", plural: "Die Stimmen" },
-  { english: "Girl", german: "Das Mädchen", plural: "Die Mädchen" },
-  { english: "Place", german: "Der Ort", plural: "Die Orte" },
-  { english: "Boy", german: "Der Junge", plural: "Die Jungen" },
-  { english: "Car", german: "Das Auto", plural: "Die Autos" }
-];
+// Local import for static file
+import tsvText from './data/initialSet.tsv?raw';
+
+function parseTSV(raw) {
+  const rows = Papa.parse(raw.trim(), {
+    delimiter: '\t',
+    skipEmptyLines: true,
+  }).data;
+
+  return rows.map(([english, german, plural]) => ({
+    english,
+    german,
+    plural,
+  }));
+}
+
+
+const initialWords = parseTSV(tsvText);
+
 
 const set1Words = [
   { english: "Side", german: "Die Seite", plural: "Die Seiten" },
