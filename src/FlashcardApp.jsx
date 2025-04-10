@@ -27,6 +27,7 @@ import tsvText7 from './data/Set7.tsv?raw';
 import tsvText8 from './data/Set8.tsv?raw';
 import tsvText9 from './data/Set9.tsv?raw';
 import tsvText10 from './data/Set10.tsv?raw';
+import tsvText11 from './data/Set11.tsv?raw';
 
 function parseTSV(raw) {
   const rows = Papa.parse(raw.trim(), {
@@ -53,6 +54,7 @@ const set7Words = parseTSV(tsvText7);
 const set8Words = parseTSV(tsvText8);
 const set9Words = parseTSV(tsvText9);
 const set10Words = parseTSV(tsvText10);
+const set11Words = parseTSV(tsvText11);
 
 function shuffle(array) {
   const copy = [...array];
@@ -88,9 +90,10 @@ export default function FlashcardApp() {
   const [set8Enabled, setSet8Enabled] = useState(false);
   const [set9Enabled, setSet9Enabled] = useState(false);
   const [set10Enabled, setSet10Enabled] = useState(false);
+  const [set11Enabled, setSet11Enabled] = useState(false);
 
 
-  const updatePoolWithSets = (initialEnabled, set1Enabled, set2Enabled, set3Enabled, set4Enabled, set5Enabled, set6Enabled,set7Enabled, set8Enabled, set9Enabled,set10Enabled) => {
+  const updatePoolWithSets = (initialEnabled, set1Enabled, set2Enabled, set3Enabled, set4Enabled, set5Enabled, set6Enabled,set7Enabled, set8Enabled, set9Enabled,set10Enabled,set11Enabled) => {
     let newPool = [];
     if (initialEnabled) newPool = [...newPool, ...initialWords];
     if (set1Enabled) newPool = [...newPool, ...set1Words];
@@ -103,6 +106,7 @@ export default function FlashcardApp() {
     if (set8Enabled) newPool = [...newPool, ...set8Words];
     if (set9Enabled) newPool = [...newPool, ...set9Words];
     if (set10Enabled) newPool = [...newPool, ...set10Words];
+    if (set11Enabled) newPool = [...newPool, ...set11Words];
 
 
     const newPoolSet = new Set(newPool);
@@ -182,7 +186,7 @@ const drawNextCard = () => {
 
   return (
     <div className="relative flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100 text-gray-800">
-      <div className="absolute top-4 left-4 flex flex-col gap-2 text-sm z-50">
+      <div className="absolute top-4 left-4 max-h-[80vh] overflow-y-auto grid grid-cols-2 gap-x-6 gap-y-2 text-sm z-50 pr-2">
         <label className="flex items-center gap-2">
           <input
             type="checkbox"
@@ -190,7 +194,7 @@ const drawNextCard = () => {
             onChange={(e) => {
               const val = e.target.checked;
               setInitialSetEnabled(val);
-              updatePoolWithSets(val, set1Enabled, set2Enabled, set3Enabled,set4Enabled, set5Enabled, set6Enabled,set7Enabled, set8Enabled, set9Enabled,set10Enabled);
+              updatePoolWithSets(val, set1Enabled, set2Enabled, set3Enabled,set4Enabled, set5Enabled, set6Enabled,set7Enabled, set8Enabled, set9Enabled,set10Enabled,set11Enabled);
             }}
           />
           Initial Set (1-25)
@@ -202,7 +206,7 @@ const drawNextCard = () => {
             onChange={(e) => {
               const val = e.target.checked;
               setSet1Enabled(val);
-              updatePoolWithSets(initialSetEnabled, val, set2Enabled, set3Enabled, set4Enabled, set5Enabled, set6Enabled,set7Enabled, set8Enabled, set9Enabled,set10Enabled);
+              updatePoolWithSets(initialSetEnabled, val, set2Enabled, set3Enabled, set4Enabled, set5Enabled, set6Enabled,set7Enabled, set8Enabled, set9Enabled,set10Enabled,set11Enabled);
             }}
           />
           Set 1 (26-100)
@@ -214,7 +218,7 @@ const drawNextCard = () => {
             onChange={(e) => {
               const val = e.target.checked;
               setSet2Enabled(val);
-              updatePoolWithSets(initialSetEnabled, set1Enabled, val, set3Enabled, set4Enabled, set5Enabled, set6Enabled,set7Enabled, set8Enabled, set9Enabled,set10Enabled);
+              updatePoolWithSets(initialSetEnabled, set1Enabled, val, set3Enabled, set4Enabled, set5Enabled, set6Enabled,set7Enabled, set8Enabled, set9Enabled,set10Enabled,set11Enabled);
             }}
           />
           Set 2 (101-200)
@@ -226,7 +230,7 @@ const drawNextCard = () => {
             onChange={(e) => {
               const val = e.target.checked;
               setSet3Enabled(val);
-              updatePoolWithSets(initialSetEnabled, set1Enabled, set2Enabled, val, set4Enabled, set5Enabled, set6Enabled,set7Enabled, set8Enabled, set9Enabled,set10Enabled);
+              updatePoolWithSets(initialSetEnabled, set1Enabled, set2Enabled, val, set4Enabled, set5Enabled, set6Enabled,set7Enabled, set8Enabled, set9Enabled,set10Enabled,set11Enabled);
             }}
           />
           Set 3 (201-300)
@@ -238,7 +242,7 @@ const drawNextCard = () => {
             onChange={(e) => {
               const val = e.target.checked;
               setSet4Enabled(val);
-              updatePoolWithSets(initialSetEnabled, set1Enabled, set2Enabled, set3Enabled, val, set5Enabled, set6Enabled,set7Enabled, set8Enabled, set9Enabled,set10Enabled);
+              updatePoolWithSets(initialSetEnabled, set1Enabled, set2Enabled, set3Enabled, val, set5Enabled, set6Enabled,set7Enabled, set8Enabled, set9Enabled,set10Enabled,set11Enabled);
             }}
           />
           Set 4 (301-400)
@@ -250,7 +254,7 @@ const drawNextCard = () => {
             onChange={(e) => {
               const val = e.target.checked;
               setSet5Enabled(val);
-              updatePoolWithSets(initialSetEnabled, set1Enabled, set2Enabled, set3Enabled, set4Enabled, val, set6Enabled,set7Enabled, set8Enabled, set9Enabled,set10Enabled);
+              updatePoolWithSets(initialSetEnabled, set1Enabled, set2Enabled, set3Enabled, set4Enabled, val, set6Enabled,set7Enabled, set8Enabled, set9Enabled,set10Enabled,set11Enabled);
             }}
           />
           Set 5 (401-500)
@@ -262,7 +266,7 @@ const drawNextCard = () => {
             onChange={(e) => {
               const val = e.target.checked;
               setSet6Enabled(val);
-              updatePoolWithSets(initialSetEnabled, set1Enabled, set2Enabled, set3Enabled, set4Enabled, set5Enabled, val ,set7Enabled, set8Enabled, set9Enabled,set10Enabled);
+              updatePoolWithSets(initialSetEnabled, set1Enabled, set2Enabled, set3Enabled, set4Enabled, set5Enabled, val ,set7Enabled, set8Enabled, set9Enabled,set10Enabled,set11Enabled);
             }}
           />
           Set 6 (501-600)
@@ -274,7 +278,7 @@ const drawNextCard = () => {
             onChange={(e) => {
               const val = e.target.checked;
               setSet7Enabled(val);
-              updatePoolWithSets(initialSetEnabled, set1Enabled, set2Enabled, set3Enabled, set4Enabled, set5Enabled, set6Enabled, val, set8Enabled, set9Enabled,set10Enabled);
+              updatePoolWithSets(initialSetEnabled, set1Enabled, set2Enabled, set3Enabled, set4Enabled, set5Enabled, set6Enabled, val, set8Enabled, set9Enabled,set10Enabled,set11Enabled);
             }}
           />
           Set 7 (601-700)
@@ -286,7 +290,7 @@ const drawNextCard = () => {
             onChange={(e) => {
               const val = e.target.checked;
               setSet8Enabled(val);
-              updatePoolWithSets(initialSetEnabled, set1Enabled, set2Enabled, set3Enabled, set4Enabled, set5Enabled, set6Enabled, set7Enabled, val, set9Enabled,set10Enabled);
+              updatePoolWithSets(initialSetEnabled, set1Enabled, set2Enabled, set3Enabled, set4Enabled, set5Enabled, set6Enabled, set7Enabled, val, set9Enabled,set10Enabled,set11Enabled);
             }}
           />
           Set 8 (701-800)
@@ -298,7 +302,7 @@ const drawNextCard = () => {
             onChange={(e) => {
               const val = e.target.checked;
               setSet9Enabled(val);
-              updatePoolWithSets(initialSetEnabled, set1Enabled, set2Enabled, set3Enabled, set4Enabled, set5Enabled, set6Enabled,set7Enabled, set8Enabled, val ,set10Enabled);
+              updatePoolWithSets(initialSetEnabled, set1Enabled, set2Enabled, set3Enabled, set4Enabled, set5Enabled, set6Enabled,set7Enabled, set8Enabled, val ,set10Enabled,set11Enabled);
             }}
           />
           Set 9 (801-900)
@@ -310,10 +314,22 @@ const drawNextCard = () => {
             onChange={(e) => {
               const val = e.target.checked;
               setSet10Enabled(val);
-              updatePoolWithSets(initialSetEnabled, set1Enabled, set2Enabled, set3Enabled, set4Enabled, set5Enabled, set6Enabled,set7Enabled, set8Enabled, set9Enabled,val);
+              updatePoolWithSets(initialSetEnabled, set1Enabled, set2Enabled, set3Enabled, set4Enabled, set5Enabled, set6Enabled,set7Enabled, set8Enabled, set9Enabled,val,set11Enabled);
             }}
           />
           Set 10 (901-1000)
+        </label>
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={set11Enabled}
+            onChange={(e) => {
+              const val = e.target.checked;
+              setSet11Enabled(val);
+              updatePoolWithSets(initialSetEnabled, set1Enabled, set2Enabled, set3Enabled, set4Enabled, set5Enabled, set6Enabled,set7Enabled, set8Enabled, set9Enabled,set10Enabled,val);
+            }}
+          />
+          Set 11 (1001-1100)
         </label>
       </div>
 
