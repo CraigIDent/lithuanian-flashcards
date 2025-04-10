@@ -59,6 +59,11 @@ const set9Words = parseTSV(tsvText9);
 const set10Words = parseTSV(tsvText10);
 const set11Words = parseTSV(tsvText11);
 
+const JITTER_COUNT = 2000;
+const jitterAngles = Array.from({ length: JITTER_COUNT }, () =>
+  (Math.random() * 6 - 3).toFixed(2)
+);
+
 function shuffle(array) {
   const copy = [...array];
   for (let i = copy.length - 1; i > 0; i--) {
@@ -187,7 +192,7 @@ const drawNextCard = () => {
           <div
             key={i}
             className={`absolute w-full h-6 ${color} rounded shadow-sm`}
-            style={{ transform: `rotate(${(Math.random() * 6 - 3).toFixed(2)}deg) translateY(-${i * 2}px)`, zIndex: i }}
+            style={{ transform: `rotate(${jitterAngles[i % JITTER_COUNT]}deg)  translateY(-${i * 2}px)`, zIndex: i }}
           />
         ))}
       </div>
@@ -203,7 +208,7 @@ const drawNextCard = () => {
 
   return (
     <div className="relative min-h-[100dvh] overflow-hidden flex flex-col items-center justify-center p-4 bg-gray-100 text-gray-800">
-      <div className="absolute top-4 left-4 max-h-[80vh] overflow-y-auto grid grid-cols-2 gap-x-6 gap-y-2 text-sm z-50 pr-2">
+      <div className="absolute top-4 left-4 max-h-[80vh] overflow-y-auto grid grid-flow-col grid-rows-6 gap-x-6 gap-y-2 text-sm z-50 pr-2">
         <label className="flex items-center gap-2">
           <input
             type="checkbox"
