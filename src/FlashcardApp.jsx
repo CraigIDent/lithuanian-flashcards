@@ -160,7 +160,7 @@ const drawNextCard = () => {
 
   const renderPile = (pile, color, label, position) => (
     <div className={`absolute bottom-4 ${position} flex flex-col items-center z-10`}>
-      <p className="text-sm font-medium mb-1 z-20">{label}: {pile.length}</p>
+      <p className="text-sm font-medium mb-1 z-50">{label}: {pile.length}</p>
       <div className="relative w-10 h-12 z-11">
         {pile.map((_, i) => (
           <div
