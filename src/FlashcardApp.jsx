@@ -176,7 +176,7 @@ const drawNextCard = () => {
     setShowAnswer(true);
     setTimeout(() => {
       setShowAnswer(false);
-    }, 1000);
+    }, 1400);
   };
 
   const renderPile = (pile, color, label, position) => (
