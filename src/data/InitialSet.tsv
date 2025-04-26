@@ -1,25 +1,26 @@
-Time	Die Zeit	Die Zeiten
-Man	Der Mann	Die Männer
-Hand	Die Hand	Die Hände
-Day	Der Tag	Die Tage
-Way	Der Weg	Die Wege
-Eye	Das Auge	Die Augen
-Thing	Die Sache	Die Sachen
-Head	Der Kopf	Die Köpfe
-Year	Das Jahr	Die Jahre
-Room	Das Zimmer	Die Zimmer
-Door	Die Tür	Die Türen
-Woman	Die Frau	Die Frauen
-Face	Das Gesicht	Die Gesichter
-Mother	Die Mutter	Die Mütter
-People	Die Leute	-
-Night	Die Nacht	Die Nächte
-House	Das Haus	Die Häuser
-Father	Der Vater	Die Väter
-Life	Das Leben	Die Leben
-Back	Der Rücken	Die Rücken
-Voice	Die Stimme	Die Stimmen
-Girl	Das Mädchen	Die Mädchen
-Place	Der Ort	Die Orte
-Boy	Der Junge	Die Jungen
-Car	Das Auto	Die Autos
+number	lithuanian	type	english	example 1 lithuanian	example 2 lithuanian	example 1 english	example 2 english
+1	ir	conjunction	and	Aš ir tu	Vyras ir moteris	Me and you	Man and woman
+2	labai	adverb	very	Labai gerai	Labai graži diena	Very well	Very beautiful day
+3	diena	noun	day	Taip, graži diena!	Šalta diena	Yes, a beautiful day!	A cold day
+4	labas	interjection	hello	Labas!	Laba diena!	Hello!	Good day! (greeting)
+5	čia	adverb	here	Aš esu čia	Vyras yra čia	I am here	The man is here
+6	gerai	adverb	well	Tu gerai kalbi	Taip, labai gerai!	You speak well	Yes, very well!
+7	norėti	verb	to want	Aš noriu truputį	Tu nori kalbėti	I want a little bit	You want to speak
+8	kalbėti	verb	to speak	Ji kalba labai gerai	Aš truputį kalbu lietuviškai	She speaks very well	I speak a little lithuanian
+9	truputį	adbverb	a little / a bit	Aš kalbu truputį	(aš) Truputį noriu dabar	I speak a little bit	I want a little bit now
+10	vyras	noun	man	Vyras labai gražus	Vyras nori kalbėti	The man is very handsome	The man wants to speak
+11	iš	preposition	from	Aš ne iš čia	Ji yra iš namo	I am not from here	She is from home
+12	Lietuva	proper noun	Lithuania	Ar tu iš Lietuvos?	Lietuva yra graži	Are you from Lithuania?	Lithuania is beautiful
+13	šalta	adjective	cold	Dabar šalta	Namas yra šaltas	(it is) Cold now 	The house is cold
+14	gražus	adjective	beautiful	Jis labai gražus!	Ji yra graži	He is very beautiful	She is beutiful
+15	taip	interjection	yes	Taip, aš noriu	Taip, labai gerai!	Yes, I want	Yes, very well!
+16	ne	interjection	no	Ne, aš nenoriu	Ne, ne dabar	No, I don't want	No, not now
+17	moteris	noun	woman	moteris yra graži	Moteris yra čia	The woman is beautiful	The woman is here
+18	dabar	adverb	now	Aš esu dabar čia	Vaikas dabar kalba	I am now here	The child is now speaking
+19	kas?	pronoun	what?	Kas čia?	Kas nori kalbėti?	What is here? (what's this?)	What do you want to say?
+20	vaikas	noun	child	Vaikas yra čia	Vaikas yra šaltas	A child is here	The child is cold
+21	namas	noun	house	Gražus namas!	Aš noriu namą	A beautiful house!	I want a house
+22	Aš esu	sub-phrase	I am	Aš esu šalta	aš esu gražus/graži	I am not from lithuania	I am beautiful
+23	Tu esi 	sub-phrase	you are	Tu esi iš Lietuvos	Tu esi labai gražus/graži	You are from Lithuania	You are very beautiful
+24	ji yra	sub-phrase	she is	Ji yra graži moteris	Ji yra šalta	She is a beautiful woman	She is cold
+25	jis yra	sub-phrase	he is	Jis yra iš Lietuvos	Jis yra čia dabar	He is from Lithuania	He is here now

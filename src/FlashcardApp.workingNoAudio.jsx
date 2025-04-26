@@ -73,47 +73,22 @@ export default function FlashcardApp() {
   const [cardType, setCardType] = useState("word"); // "word" or "sentence"
   const [cameFromWrongPile, setCameFromWrongPile] = useState(false);
   const [initialSetEnabled, setInitialSetEnabled] = useState(true); // (currently unused)
-  const [audioEnabled, setAudioEnabled] = useState(true);
-
 
   // On mount: extract all example sentences and shuffle
   useEffect(() => {
     const sentences = [];
     initialWords.forEach(entry => {
-      sentences.push({ lithuanian: entry.example1, english: entry.example1English, type: 'sentence', number: entry.number, exampleKey: "example1" });
-      sentences.push({ lithuanian: entry.example2, english: entry.example2English, type: 'sentence', number: entry.number, exampleKey: "example2" });
+      sentences.push({ lithuanian: entry.example1, english: entry.example1English, type: 'sentence' });
+      sentences.push({ lithuanian: entry.example2, english: entry.example2English, type: 'sentence' });
     });
     setSentencePool(shuffle(sentences));
   }, []);
 
   // Whenever card type changes, draw a new card
-  useEffect(() => {
-    setCelebrated(false); 
-    setCorrectPile([]);
-    setWrongPile([]);
-    setExampleSentence("");
-    setShowEnglish(false);
-    
-    setCurrent(null); // 🔥 Invalidate current card first
-  
-      if (cardType === "word") {
-        setPool(shuffle(initialWords));
-        setCurrent(initialWords.length > 0 ? initialWords[Math.floor(Math.random() * initialWords.length)] : null);
-      } else {
-        const sentences = [];
-        initialWords.forEach(entry => {
-          sentences.push({ lithuanian: entry.example1, english: entry.example1English, type: 'sentence', number: entry.number, exampleKey: "example1" });
-          sentences.push({ lithuanian: entry.example2, english: entry.example2English, type: 'sentence', number: entry.number, exampleKey: "example2" });
-        });
-        const shuffledSentences = shuffle(sentences);
-        setSentencePool(shuffledSentences);
-        setCurrent(shuffledSentences.length > 0 ? shuffledSentences[Math.floor(Math.random() * shuffledSentences.length)] : null);
-      }
-  }, [cardType]);
-
+  useEffect(() => { drawNextCard(); }, [cardType]);
   
   // Whenever pool updates (after correct guesses), draw a new card
-  //useEffect(() => { drawNextCard(); }, [pool]);
+  useEffect(() => { drawNextCard(); }, [pool]);
 
   // Celebrate with confetti once all words are answered correctly
   useEffect(() => {
@@ -122,23 +97,6 @@ export default function FlashcardApp() {
       setCelebrated(true);
     }
   }, [pool, wrongPile, correctPile, celebrated]);
-
-  // Play the audio
-  function playAudio(number, type = "word") {
-    if (!audioEnabled) return; // Respect toggle
-  
-    const url = `./data/audio/${number}_${type}.mp3`;
-    //const url = `./data/audio/blaster.mp3`;
-    const audio = new Audio(url);
-  
-    audio.play()
-      .then(() => {
-        console.log(`Playing audio: ${url}`);
-      })
-      .catch(err => {
-        console.error(`Audio play failed for ${url}:`, err);
-      });
-  }
 
   // Choose the next flashcard
   function drawNextCard() {
@@ -161,18 +119,6 @@ export default function FlashcardApp() {
     setCurrent(next);
     setShowEnglish(false);
     setExampleSentence("");
-  
-    // 🔥 Play audio immediately if Lithuanian side is shown
-    if (next &&  audioEnabled && mode === "LT-EN") {
-      setTimeout(() => {
-        if (cardType === "word") {
-          playAudio(next.number || next.lithuanianNumber, "word");
-        } else {
-          // Sentence mode
-          playAudio(next.number || next.lithuanianNumber, next.exampleKey || "word");
-        }
-      }, 400); // <-- smooth delay matching your motion.div animation duration
-    }
   }
 
   const updatePoolWithSets = (initialEnabled) => {
@@ -214,25 +160,11 @@ export default function FlashcardApp() {
   function handleReveal() {
     if (!current) return;
     setShowEnglish(true);
-  
     if (cardType === "word") {
-      const exampleKey = Math.random() < 0.5 ? "example1" : "example2";
-      setExampleSentence(current[exampleKey]);
-  
-      if (mode === "EN-LT") {
-        setTimeout(() => {
-          playAudio(current.number, "word");
-        }, 400);
-      }
-    } else { // if cardType == "sentence"
-      if (mode === "EN-LT") {
-        setTimeout(() => {
-          playAudio(current.number, current.exampleKey || "word");
-        }, 400);
-      }
+      const chosen = Math.random() < 0.5 ? current.example1 : current.example2;
+      setExampleSentence(chosen);
     }
   }
-  
 
   // Show a random example sentence without revealing the translation
   function handleExample() {
@@ -262,9 +194,7 @@ export default function FlashcardApp() {
       }
     }
   
-    setTimeout(() => {
-      drawNextCard();
-    }, 75); // just 50ms delay is enough
+    drawNextCard();
   }
 
 
@@ -335,32 +265,13 @@ export default function FlashcardApp() {
           <span className="text-sm">Initial Set (1–25)</span>
         </label>
       </div>
-      {/* Audio toggle */}
-      <div className="absolute top-2 left-1/2 transform -translate-x-1/2 flex flex-col gap-2 items-center">
-        <span className="text-sm">Audio</span>
-        <label className="relative inline-flex items-center cursor-pointer">
-          <input
-            type="checkbox"
-            className="sr-only peer"
-            checked={audioEnabled}
-            onChange={(e) => setAudioEnabled(e.target.checked)}
-          />
-          <div className={`w-11 h-6 rounded-full bg-gray-200 transition-all duration-300 
-            ${audioEnabled ? "ring-2 ring-green-500" : ""}  
-            after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 
-            after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full`}>
-          </div>
-        </label>
-        <span className="text-sm">{audioEnabled ? "On" : "Off"}</span>
-      </div>
-
 
 
       {/* Flashcard view */}
       <AnimatePresence mode="wait">
         {current && (
           <motion.div
-            key={(current ? current.lithuanian : "blank") + "-" + cardType + "-" + mode + (showEnglish ? "-a" : "-q")}
+            key={current.lithuanian + (showEnglish ? "-a" : "-q")}
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
@@ -407,19 +318,7 @@ export default function FlashcardApp() {
           </motion.div>
         )}
       </AnimatePresence>
-      {/*
-      <Button className="bg-yellow-500 hover:bg-yellow-600 mt-4" onClick={() => {
-        const audioStr = './data/audio/blaster.mp3'
-        const audio = new Audio(audioStr);
-        audio.play().then(() => {
-          console.log("Manual play success");
-        }).catch(err => {
-          console.error("Manual play failed:", err,audioStr);
-        });
-      }}>
-        Test Play 1_word.mp3
-      </Button>
-      */}
+
       {/* Piles at the bottom */}
       {renderPile(correctPile, "bg-green-100", "Correct", "left-4")}
       {renderPile(wrongPile, "bg-red-100", "Wrong", "right-4")}
