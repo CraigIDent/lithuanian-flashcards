@@ -73,7 +73,7 @@ export default function FlashcardApp() {
   const [cardType, setCardType] = useState("word"); // "word" or "sentence"
   const [cameFromWrongPile, setCameFromWrongPile] = useState(false);
   const [initialSetEnabled, setInitialSetEnabled] = useState(true); // (currently unused)
-  const [audioEnabled, setAudioEnabled] = useState(true);
+  const [audioEnabled, setAudioEnabled] = useState(false);
 
 
   // On mount: extract all example sentences and shuffle
